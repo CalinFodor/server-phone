@@ -19,14 +19,31 @@ app.get("/", (req, res) => {
 
 app.get("/stats", async (req, res) => {
   try {
-    const battery = await run("termux-battery-status");
-    const mem = await run("free -h | grep Mem"); 
-    const storage = await run("df -h /data | tail -1");
+    
+    const memParts = mem.split(/\s+/); 
+    const memUsed = memParts[2];  // 1.7Gi
+    const memTotal = memParts[1]; // 3.4Gi
+
+    
+    const storageParts = storage.split(/\s+/);
+    const storageFree = storageParts[3]; // 44G
+    const storageUsedPercent = storageParts[4]; // 13%
+
     res.json({
-      battery: JSON.parse(battery),
-      memory: mem,
-      storage: storage
+      battery: JSON.parse(battery), // Already an object thanks to termux-api
+      memory: {
+        used: memUsed,
+        total: memTotal,
+        display: `${memUsed} / ${memTotal}`
+      },
+      storage: {
+        free: storageFree,
+        percent: storageUsedPercent,
+        display: `${storageFree} available (${storageUsedPercent} used)`
+      }
     });
+
+
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch stats. Is Termux:API installed?" });
   }

@@ -10,3 +10,21 @@ body {
       margin-bottom: 10px;
       border-radius: 8px;
     }
+
+.container {
+  display: flex;
+  align-items: center; /* Vertically centers the label with the bar */
+  gap: 10px;           /* Adds space between the label and the bar */
+}
+
+#store-bar {
+  flex-grow: 1;        /* Optional: makes the bar fill the remaining space */
+  background-color: #eee;
+}
+
+#myBar {
+  width: 10%;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+}
