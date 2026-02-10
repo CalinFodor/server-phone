@@ -35,4 +35,5 @@ app.get("/stats", async (req, res) => {
 app.listen(3000, "0.0.0.0", () => {
   console.log("Server running on http://localhost:3000 (Phone)");
   console.log("To access from laptop, use your phone's IP address on port 3000");
+  
 });
