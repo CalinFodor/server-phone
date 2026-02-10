@@ -1,30 +1,62 @@
+h1{
+  text-align: center;
+  font-size: 40px;
+}
+
+h2{
+  font-size: 27px;
+  text-align: center;
+}
+
 body {
       font-family: monospace;
       background: #0f172a;
       color: #e5e7eb;
       padding: 20px;
-    }
-.card {
-      background: #020617;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-    }
+  }
 
-.container {
+
+.stats-container {
   display: flex;
-  align-items: center; /* Vertically centers the label with the bar */
-  gap: 10px;           /* Adds space between the label and the bar */
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start; 
+  width: 60%;              
+  margin: 0 auto;         
 }
 
-#store-bar {
-  flex-grow: 1;        /* Optional: makes the bar fill the remaining space */
+.load-bar {
+  width: 100%;             
   background-color: #eee;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;    
 }
 
-#myBar {
-  width: 10%;
+label{
+  font-size: 15px;
+}
+
+span {
+  font-size: 20px;
+}
+
+
+
+
+.inside-bar {
+  width: 20%;
   background-color: #4CAF50;
   color: white;
   text-align: center;
+  border-radius: 10px;
 }
+
+#stor-bar{
+  width: 75%;
+}
+
+#mem-bar{
+  width: 50%;
+}
+

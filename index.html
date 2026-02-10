@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Phone Stats Dashboard</title>
+  <title>A32 Remote Phone Server</title>
  
   <link rel ="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>📱 Phone Stats</h1>
-  <div id="dashboard">
-    <p>Battery: <span id="bat-val">Loading...</span></p>
-    <p>Memory: <span id="mem-val">Loading...</span></p>
-    <div class="container">
-    <label for="store-bar">Storage Used</label>
-    <div id="store-bar">
-      <div id="myBar">10%</div>
-    </div>
+  <main>
+  <h1>A32 Remote Phone Server</h1>
+      <div class="stats-container">
+        <h2>📱 Phone Stats</h1>
+
+        <label>Battery:</label>
+        <div class="load-bar">
+            <div class="inside-bar" id="bat-val">10%</div>
+        </div>
+
+        <label>Storage: <span id="stor-text">48 / 64 GB</span></label>
+        <div class="load-bar">
+            <div class="inside-bar" id="stor-bar">75%</div>
+        </div>
+
+        <label>Memory: <span id="mem-text">2 / 4 GB</span></label>
+        <div class="load-bar">
+            <div class="inside-bar" id="mem-bar">50%</div>
+        </div>
   </div>
-  </div>
+  </main>
   <script src = "script.js"></script>
 </body>
 </html>
