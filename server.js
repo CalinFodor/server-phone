@@ -107,10 +107,10 @@ app.post("/control/:action",async (req,res) => {
 
     }
 
-    res.status(200).send("Command ok");
+    return res.status(200).send("Command ok");
 
   }catch(error){
-    res.status(500).send("Command failed");
+    return res.status(500).send("Command failed");
   }
 
 });
