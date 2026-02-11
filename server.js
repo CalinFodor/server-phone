@@ -1,83 +1,88 @@
 const express = require("express");
 const { exec } = require("child_process");
-const path = require("path"); 
+const path = require("path");
 
 const app = express();
 app.use(require("cors")());
 app.use(express.static(__dirname));
 
-// Helper function to run Termux commands
+/**
+ * Helper: Runs a shell command and returns a promise
+ */
 function run(cmd) {
   return new Promise(resolve => {
     exec(cmd, (err, stdout) => resolve(stdout.trim()));
   });
 }
 
+/**
+ * Data Parsers
+ */
+async function getBattery() {
+  const status = JSON.parse(await run("termux-battery-status"));
+  return {
+    percent: status.percentage,
+    display: `${status.percentage}%`
+  };
+}
+
+async function getStorage() {
+  const info = await run("df -h /data");
+  const lines = info.split('\n');
+  const fields = lines[lines.length - 1].split(/\s+/);
+  
+  return {
+    percent: fields[4] || "0%",
+    display: `${fields[2] || "N/A"} / ${fields[1] || "N/A"}`
+  };
+}
+
+async function getMemory() {
+  const info = await run("free -h");
+  const match = info.match(/Mem:\s+([^\s]+)\s+([^\s]+)/);
+  if (!match) return { percent: "0%", display: "N/A" };
+
+  const [_, totalRaw, usedRaw] = match;
+
+  // Convert Gi/Mi to a standard number for math
+  const toMb = (str) => {
+    let val = parseFloat(str);
+    return str.includes("Gi") ? val * 1024 : val;
+  };
+
+  const total = toMb(totalRaw);
+  const used = toMb(usedRaw);
+  const percent = Math.round((used / total) * 100);
+
+  return {
+    percent: `${percent}%`,
+    display: `${usedRaw} / ${totalRaw}`
+  };
+}
+
+/**
+ * Routes
+ */
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.get("/stats", async (req, res) => {
   try {
-    
-    // 1. Get Battery (JSON)
-    const { percentage } = JSON.parse(await run("termux-battery-status"));
+    // Run all three requests in parallel for better performance
+    const [battery, storage, memory] = await Promise.all([
+      getBattery(),
+      getStorage(),
+      getMemory()
+    ]);
 
-    // 2. Get Storage (Text Table)
-    const storageInfo = await run("df -h /data");
-    // Regex logic: Split by lines, take the last line, and split by whitespace
-    const storageLines = storageInfo.trim().split('\n');
-    const storageFields = storageLines[storageLines.length - 1].split(/\s+/);
-    
-    // In 'df -h', usually: index 3 is Avail, index 4 is Use%
-    const storageSize = storageFields[1] || "N/A";
-    const storageUsed = storageFields[2] || "N/A";
-    const storageUsedPercent = storageFields[4] || "N/A";
-
-    // 3. Get Memory (Text Table)
-    const memoryInfo = await run("free -h");
-    // Regex logic: Find the line starting with "Mem:", then grab the 1st and 2nd values
-    const memMatch = memoryInfo.match(/Mem:\s+([^\s]+)\s+([^\s]+)/);
-    const memTotal = memMatch ? memMatch[1] : "N/A";
-    const memUsed = memMatch ? memMatch[2] : "N/A";
-    
-    const memTotalRaw = memMatch[1]; // "3.4Gi"
-    const memUsedRaw = memMatch[2];  // "1.6Gi"
-
-    // parseFloat converts "1.6Gi" to 1.6
-    let total = parseFloat(memTotalRaw);
-    let used = parseFloat(memUsedRaw);
-
-    // Handle unit conversion if one is Mi and the other is Gi
-    if (memTotalRaw.includes("Gi")) total *= 1024;
-    if (memUsedRaw.includes("Gi")) used *= 1024;
-
-    const memPercentage = Math.round((used / total) * 100);
-
-    res.json({
-      battery: {
-        percent: percentage,
-        display:`${percentage}%`
-      }, 
-      storage: {
-        percent: storageUsedPercent,
-        display: `${storageUsed} / ${storageSize}`
-      },
-
-      memory: {
-        percent: `${memPercentage}%`,
-        display: `${memUsed} / ${memTotal}`
-      }
-    });
-
-
+    res.json({ battery, storage, memory });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch stats. Is Termux:API installed?" });
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch stats." });
   }
 });
 
 app.listen(3000, "0.0.0.0", () => {
-  console.log("Server running on http://localhost:3000 (Phone)");
-  console.log("To access from laptop, use your phone's IP address on port 3000");
-  
+  console.log("Server running: http://localhost:3000");
 });

@@ -10,6 +10,19 @@ export class UI{
         //text labels
         this.storText = document.getElementById('stor-text');
         this.memText = document.getElementById('mem-text');
+
+        //hardware control buttons
+        this.flashBtn = document.getElementById('flash-btn');
+        this.vibBtn = document.getElementById('vib-btn');
+        this.photoBtn = document.getElementById('photo-btn');
+
+        //status variables for flashlight 
+        this.flashOn = 0;
+
+        //listners for hardware buttons
+        this.flashBtn.addEventListener("click", () => this.onFlashPress());
+        this.vibBtn.addEventListener("click", () => this.onVibPress());
+        this.photoBtn.addEventListener("click", () => this.onPhotoPress());
         
     }
 
@@ -28,5 +41,25 @@ export class UI{
         this.memBar.style.width = data.memory.percent;
     }
 
+    async onFlashPress(){
+
+        if(this.flashOn){
+            this.flashOn = 0;
+            this.flashBtn.innerText = "Flashlight On";
+            this.flashBtn.style.backgroundColor = "white";
+        }else{
+            this.flashOn = 1;
+            this.flashBtn.innerText = "Flashlight Off";
+            this.flashBtn.style.backgroundColor = "yellow";
+        }
+    }
+
+    async onVibPress(){
+
+    }
+
+    async onPhotoPress(){
+
+    }
 
 }

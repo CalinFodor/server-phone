@@ -6,8 +6,9 @@ async function startApp()
     const phoneManager = new PhoneManager();
     const ui = new UI(phoneManager);
 
-    setInterval(ui.renderBars, 5000);
-    ui.renderBars();    
+    await ui.renderBars();    
+
+    setInterval(() => ui.renderBars(), 2000);
 }
 
 startApp();
