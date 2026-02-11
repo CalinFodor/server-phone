@@ -66,4 +66,16 @@ span {
   cursor: pointer;
 }
 
+.img-container{
+  display: flex;
+  justify-content: center;
+}
+
+img{
+  width: 50%;
+  margin: 30px;
+  border: 5px solid #555;
+
+}
+
 
