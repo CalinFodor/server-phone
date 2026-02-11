@@ -14,7 +14,7 @@ export class UI{
     }
 
     async renderBars() {
-        const data = this.phoneManager.getPhoneStats();
+        const data = await this.phoneManager.getPhoneStats();
 
         this.batBar.innerText = data.battery.display;
         this.batBar.style.width = data.battery.display;
