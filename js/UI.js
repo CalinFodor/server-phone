@@ -53,6 +53,12 @@ export class UI{
 
     async onVibPress(){
         this.phoneManager.toggleVib();
+
+        this.vibBtn.style.backgroundColor = "blue";
+
+        setTimeout(() => {
+            this.vibBtn.style.backgroundColor = "white";
+        },1000);
     }
 
     async onPhotoPress(){
