@@ -8,14 +8,13 @@ async function loadStats() {
 
       // Update Storage (Using the percentage for a progress bar width)
       document.getElementById('stor-text').innerText = data.storage.display;
-      document.getElementById('store-bar').style.width = data.storage.percent;
-      document.getElementById('store-bar').innerText = data.storage.percent;
+      document.getElementById('stor-bar').style.width = data.storage.percent;
+      document.getElementById('stor-bar').innerText = data.storage.percent;
 
       // Update Memory (Accessing our new 'display' string)
       document.getElementById('mem-text').innerText = data.memory.display;
       document.getElementById('mem-bar').innerText = data.memory.percent;
       document.getElementById('mem-bar').style.width = data.memory.percent;
-
 
         }
 setInterval(loadStats, 2000);

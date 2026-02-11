@@ -23,16 +23,7 @@ app.get("/stats", async (req, res) => {
     // 1. Get Battery (JSON)
     const { percentage } = JSON.parse(await run("termux-battery-status"));
 
-    // 2. Get Memory (Text Table)
-    const memoryInfo = await run("free -h");
-    // Regex logic: Find the line starting with "Mem:", then grab the 1st and 2nd values
-    const memMatch = memoryInfo.match(/Mem:\s+([^\s]+)\s+([^\s]+)/);
-    const memTotal = memMatch ? memMatch[1] : "N/A";
-    const memUsed = memMatch ? memMatch[2] : "N/A";
-    const memPercentage = Math.round(100*memUsed/memTotal);
-
-
-    // 3. Get Storage (Text Table)
+    // 2. Get Storage (Text Table)
     const storageInfo = await run("df -h /data");
     // Regex logic: Split by lines, take the last line, and split by whitespace
     const storageLines = storageInfo.trim().split('\n');
@@ -42,6 +33,26 @@ app.get("/stats", async (req, res) => {
     const storageSize = storageFields[1] || "N/A";
     const storageUsed = storageFields[2] || "N/A";
     const storageUsedPercent = storageFields[4] || "N/A";
+
+    // 3. Get Memory (Text Table)
+    const memoryInfo = await run("free -h");
+    // Regex logic: Find the line starting with "Mem:", then grab the 1st and 2nd values
+    const memMatch = memoryInfo.match(/Mem:\s+([^\s]+)\s+([^\s]+)/);
+    const memTotal = memMatch ? memMatch[1] : "N/A";
+    const memUsed = memMatch ? memMatch[2] : "N/A";
+    
+    const memTotalRaw = memMatch[1]; // "3.4Gi"
+    const memUsedRaw = memMatch[2];  // "1.6Gi"
+
+    // parseFloat converts "1.6Gi" to 1.6
+    let total = parseFloat(memTotalRaw);
+    let used = parseFloat(memUsedRaw);
+
+    // Handle unit conversion if one is Mi and the other is Gi
+    if (memTotalRaw.includes("Gi")) total *= 1024;
+    if (memUsedRaw.includes("Gi")) used *= 1024;
+
+    const memPercentage = Math.round((used / total) * 100);
 
     res.json({
       battery: {
