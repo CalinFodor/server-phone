@@ -63,7 +63,7 @@ export class UI{
 
     async onPhotoPress(){
         this.photoBtn.backgroundColor = "green";
-        const data = this.phoneManager.takePhoto();
+        const data = await this.phoneManager.takePhoto();
         document.getElementById('display-img').src = data.photoUrl;
 
         setTimeout(() => {

@@ -5,6 +5,7 @@ const path = require("path");
 const app = express();
 app.use(require("cors")());
 app.use(express.static(__dirname));
+app.use('/photos', express.static('photos'))
 
 /**
  * Helper: Runs a shell command and returns a promise
@@ -103,8 +104,7 @@ app.post("/control/:action",async (req,res) => {
       
       await run(`termux-camera-photo ${fullPath}`);
       
-      res.json({ photoUrl: `./photos/${fileName}` });
-
+      return res.json({ photoUrl: `http://192.168.222.114:3000/photos/${fileName}` });
     }
 
     return res.status(200).send("Command ok");
