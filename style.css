@@ -41,7 +41,6 @@ span {
   font-size: 20px;
 }
 
-
 .inside-bar {
   width: 0%;
   background-color: #4CAF50;
@@ -50,5 +49,21 @@ span {
   border-radius: 10px;
 }
 
+.hardware-container{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  width: 60%;              
+  margin: 0 auto; 
+}
+
+.hardware-container button {
+  background-color: white;
+  border-radius: 10px;
+  padding:20px 0px;
+  flex:1;
+  cursor: pointer;
+}
 
 
