@@ -42,21 +42,13 @@ span {
 }
 
 
-
-
 .inside-bar {
-  width: 20%;
+  width: 0%;
   background-color: #4CAF50;
   color: white;
   text-align: center;
   border-radius: 10px;
 }
 
-#stor-bar{
-  width: 75%;
-}
 
-#mem-bar{
-  width: 50%;
-}
 

@@ -20,26 +20,42 @@ app.get("/", (req, res) => {
 app.get("/stats", async (req, res) => {
   try {
     
-    const memParts = mem.split(/\s+/); 
-    const memUsed = memParts[2];  // 1.7Gi
-    const memTotal = memParts[1]; // 3.4Gi
+    // 1. Get Battery (JSON)
+    const { percentage } = JSON.parse(await run("termux-battery-status"));
 
+    // 2. Get Memory (Text Table)
+    const memoryInfo = await run("free -h");
+    // Regex logic: Find the line starting with "Mem:", then grab the 1st and 2nd values
+    const memMatch = memoryInfo.match(/Mem:\s+([^\s]+)\s+([^\s]+)/);
+    const memTotal = memMatch ? memMatch[1] : "N/A";
+    const memUsed = memMatch ? memMatch[2] : "N/A";
+    const memPercentage = Math.round(100*memUsed/memTotal);
+
+
+    // 3. Get Storage (Text Table)
+    const storageInfo = await run("df -h /data");
+    // Regex logic: Split by lines, take the last line, and split by whitespace
+    const storageLines = storageInfo.trim().split('\n');
+    const storageFields = storageLines[storageLines.length - 1].split(/\s+/);
     
-    const storageParts = storage.split(/\s+/);
-    const storageFree = storageParts[3]; // 44G
-    const storageUsedPercent = storageParts[4]; // 13%
+    // In 'df -h', usually: index 3 is Avail, index 4 is Use%
+    const storageSize = storageFields[0] || "N/A";
+    const storageFree = storageFields[3] || "N/A";
+    const storageUsedPercent = storageFields[4] || "N/A";
 
     res.json({
-      battery: JSON.parse(battery), // Already an object thanks to termux-api
-      memory: {
-        used: memUsed,
-        total: memTotal,
-        display: `${memUsed} / ${memTotal}`
-      },
+      battery: {
+        percent: percentage,
+        display:`${percentage}%`
+      }, 
       storage: {
-        free: storageFree,
         percent: storageUsedPercent,
-        display: `${storageFree} available (${storageUsedPercent} used)`
+        display: `${storageFree} / ${storageSize}`
+      },
+
+      memory: {
+        percent: `${memPercentage}%`,
+        display: `${memUsed} / ${memTotal}`
       }
     });
 
