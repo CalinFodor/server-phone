@@ -43,19 +43,16 @@ export class UI{
 
     async onFlashPress(){
 
-        if(this.flashOn){
-            this.flashOn = 0;
-            this.flashBtn.innerText = "Flashlight On";
-            this.flashBtn.style.backgroundColor = "white";
-        }else{
-            this.flashOn = 1;
-            this.flashBtn.innerText = "Flashlight Off";
-            this.flashBtn.style.backgroundColor = "yellow";
-        }
+        this.flashOn = !this.flashOn; 
+    
+        this.phoneManager.toggleFlash(this.flashOn);
+
+        this.flashBtn.innerText = this.flashOn ? "Flashlight Off" : "Flashlight On";
+        this.flashBtn.style.backgroundColor = this.flashOn ? "yellow" : "white";
     }
 
     async onVibPress(){
-
+        this.phoneManager.toggleVib();
     }
 
     async onPhotoPress(){

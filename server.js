@@ -83,6 +83,25 @@ app.get("/stats", async (req, res) => {
   }
 });
 
+app.post("/control/:action",async (req,res) => {
+  const action = req.params.action;
+
+  try{
+    if(action === "flashlight-on"){
+      await run("termux-torch on");
+    }else if(action === "flashligh-off"){
+      await run("termux-torch off");
+    }else if(action === "vibrate"){
+      await run("vibrate -d 1000");
+    }
+    res.sendStatus(200);
+
+  }catch(error){
+    res.status(500).send("Command failed");
+  }
+
+});
+
 app.listen(3000, "0.0.0.0", () => {
   console.log("Server running: http://localhost:3000");
 });
