@@ -62,7 +62,13 @@ export class UI{
     }
 
     async onPhotoPress(){
+        this.photoBtn.backgroundColor = "green";
+        const data = this.phoneManager.takePhoto();
+        document.getElementById('display-img').src = data.photoUrl;
 
+        setTimeout(() => {
+            this.photoBtn.style.backgroundColor = "white";
+        },500);
     }
 
 }

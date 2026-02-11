@@ -86,6 +86,8 @@ app.get("/stats", async (req, res) => {
 app.post("/control/:action",async (req,res) => {
   const action = req.params.action;
 
+  let photoPath = "";
+
   try{
     if(action === "flashlight-on"){
       await run("termux-torch on");
@@ -93,8 +95,19 @@ app.post("/control/:action",async (req,res) => {
       await run("termux-torch off");
     }else if(action === "vibrate"){
       await run("termux-vibrate -d 1000");
+    }else if(action === "take-photo"){
+      const dStr = Date.now(); 
+      const fileName = `${dStr}.jpeg`;
+      
+      const fullPath = path.join(__dirname, "photos", fileName);
+      
+      await run(`termux-camera-photo ${fullPath}`);
+      
+      res.json({ photoUrl: `./photos/${fileName}` });
+
     }
-    res.sendStatus(200);
+
+    res.status(200).send("Command ok");
 
   }catch(error){
     res.status(500).send("Command failed");

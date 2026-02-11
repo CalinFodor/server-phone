@@ -21,4 +21,10 @@ export class PhoneManager{
         await fetch(`http://192.168.222.114:3000/control/${command}`, { method: 'POST' });
     }
 
+    async takePhoto(){
+        const response = await fetch(`http://192.168.222.114:3000/control/take-photo`, { method: 'POST' });
+        const data = await response.json();
+        return data;
+    }
+
 }
