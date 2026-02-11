@@ -12,11 +12,13 @@ export class PhoneManager{
 
     async toggleFlash(state){
         const command = state ? "flashlight-on":"flashlight-off";
+        console.log(command);
         await fetch(`http://192.168.222.114:3000/control/${command}`, { method: 'POST' });
     }
 
     async toggleVib(){
-        await fetch(`http://192.168.222.114:3000/control/vibrate`, { method: 'POST' });
+        const command = "vibrate";
+        await fetch(`http://192.168.222.114:3000/control/${command}`, { method: 'POST' });
     }
 
 }

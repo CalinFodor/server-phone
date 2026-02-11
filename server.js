@@ -89,10 +89,10 @@ app.post("/control/:action",async (req,res) => {
   try{
     if(action === "flashlight-on"){
       await run("termux-torch on");
-    }else if(action === "flashligh-off"){
+    }else if(action === "flashlight-off"){
       await run("termux-torch off");
     }else if(action === "vibrate"){
-      await run("vibrate -d 1000");
+      await run("termux-vibrate -d 1000");
     }
     res.sendStatus(200);
 

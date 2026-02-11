@@ -17,7 +17,7 @@ export class UI{
         this.photoBtn = document.getElementById('photo-btn');
 
         //status variables for flashlight 
-        this.flashOn = 0;
+        this.flashOn = false;
 
         //listners for hardware buttons
         this.flashBtn.addEventListener("click", () => this.onFlashPress());
