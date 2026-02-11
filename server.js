@@ -39,8 +39,8 @@ app.get("/stats", async (req, res) => {
     const storageFields = storageLines[storageLines.length - 1].split(/\s+/);
     
     // In 'df -h', usually: index 3 is Avail, index 4 is Use%
-    const storageSize = storageFields[0] || "N/A";
-    const storageFree = storageFields[3] || "N/A";
+    const storageSize = storageFields[1] || "N/A";
+    const storageUsed = storageFields[2] || "N/A";
     const storageUsedPercent = storageFields[4] || "N/A";
 
     res.json({
@@ -50,7 +50,7 @@ app.get("/stats", async (req, res) => {
       }, 
       storage: {
         percent: storageUsedPercent,
-        display: `${storageFree} / ${storageSize}`
+        display: `${storageUsed} / ${storageSize}`
       },
 
       memory: {
