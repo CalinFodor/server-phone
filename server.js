@@ -1,8 +1,13 @@
 const express = require("express");
 const { exec } = require("child_process");
 const path = require("path");
+const http = require("http");
+const WebSocket = require("ws");
 
 const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
 app.use(require("cors")());
 app.use(express.static(__dirname));
 app.use('/photos', express.static('photos'))
@@ -60,28 +65,38 @@ async function getMemory() {
     display: `${usedRaw} / ${totalRaw}`
   };
 }
+/**
+ * WebSocket Logic
+ */
+
+async function broadcastStats() {
+   const [battery,storage,memory] = await Promise.all([
+      getBattery(),
+      getStorage(),
+      getMemory()
+   ]); 
+
+   wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(stats);
+    }
+  });
+
+}
+
+setInterval(broadcastStats, 5000);
+
+wss.on('connection', (ws) => {
+  console.log('Client connected via WebSocket');
+  // Send stats immediately upon connection
+  broadcastStats();
+});
 
 /**
  * Routes
  */
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.get("/stats", async (req, res) => {
-  try {
-    // Run all three requests in parallel for better performance
-    const [battery, storage, memory] = await Promise.all([
-      getBattery(),
-      getStorage(),
-      getMemory()
-    ]);
-
-    res.json({ battery, storage, memory });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch stats." });
-  }
 });
 
 app.post("/control/:action",async (req,res) => {
@@ -115,6 +130,6 @@ app.post("/control/:action",async (req,res) => {
 
 });
 
-app.listen(3000, "0.0.0.0", () => {
+server.listen(3000, "0.0.0.0", () => {
   console.log("Server running: http://localhost:3000");
 });

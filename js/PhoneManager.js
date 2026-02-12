@@ -1,7 +1,15 @@
 export class PhoneManager{
 
-    constructor(){
-        this.apiUrl = "http://192.168.222.114:3000/stats";
+    constructor(url,onDataReceived){
+        this.socket = new WebSocket(url);
+
+        this.socket.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+            if(msg.type === "stats"){
+                onDataReceived(msg.data);
+            }
+
+        }
     }
 
     async getPhoneStats(){

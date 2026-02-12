@@ -3,7 +3,7 @@ import { PhoneManager } from "./PhoneManager.js"
 
 async function startApp()
 {
-    const phoneManager = new PhoneManager();
+    const phoneManager = new PhoneManager(`ws://${window.location.host}`, (data) => ui.renderBars(data));
     const ui = new UI(phoneManager);
 
     await ui.renderBars();    
