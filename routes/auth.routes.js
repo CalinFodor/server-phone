@@ -7,6 +7,7 @@ module.exports = () => {
         const { username, password } = req.body;
 
         if (username !== process.env.LOGIN_USER || password !== process.env.LOGIN_PASS) {
+            console.log("Invalid credentials");
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
