@@ -23,7 +23,26 @@ export class UI{
         this.flashBtn.addEventListener("click", () => this.onFlashPress());
         this.vibBtn.addEventListener("click", () => this.onVibPress());
         this.photoBtn.addEventListener("click", () => this.onPhotoPress());
+
+        //inputs in login
+        this.user_input = document.getElementById('first');
+        this.pass_input = document.getElementById('password');
+        this.sub_button = document.getElementById('sub-button');
+
+        this.sub_button.addEventListener("click",() => )
         
+    }
+
+    async subPressed(){
+        let user = this.user_input.value;
+        let pass = this.pass_input.value;
+
+        const logInData = {
+            username:user,
+            password:pass
+        }
+
+        await this.phoneManager.sendLogInData(logInData);
     }
 
     async renderBars(data) {

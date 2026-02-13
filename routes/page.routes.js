@@ -6,7 +6,11 @@ const router = express.Router();
 module.exports = (baseDir) => {
 
   router.get("/", (req,res) => {
-    res.sendFile(path.join(baseDir, "index.html"));
+    if(req.session.user){
+      res.sendFile(path.join(baseDir, "index.html"));
+    }else{
+      res.sendFile(path.join(baseDir,"login.html"));
+    }
   });
 
   return router;

@@ -9,10 +9,14 @@ h2{
 }
 
 body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: monospace;
       background: #0f172a;
       color: #e5e7eb;
       padding: 20px;
+      text-align: center;
   }
 
 
@@ -76,6 +80,68 @@ img{
   margin: 30px;
   border: 5px solid #555;
 
+}
+/* log in page */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 100%;
+}
+
+.log-in-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    width: 30%;
+    text-align: center;
+}
+
+.log-in-form label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555;
+    font-weight: bold;
+}
+
+.log-in-form input[type="text"],
+.log-in-form input[type="password"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
+.log-in-form .sub-button {
+   padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #0f172a;
+    width: 100%;
+    font-size: 16px;
+}
+
+.log-in-form .wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

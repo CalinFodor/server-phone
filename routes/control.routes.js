@@ -7,6 +7,10 @@ module.exports = (baseDir) => {
   router.post("/:action", async (req,res) => {
     const action = req.params.action;
 
+    if(!req.session.user){
+      return;
+    }
+
     try{
       if(action === "flashlight-on"){
         await hardware.flashlightOn();
