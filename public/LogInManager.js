@@ -3,12 +3,10 @@ export class LogInManager
     
     async sendLogInData(loginData) {
         try {
-            const response = await fetch('http://192.168.222.114:3000/login', {
+            const response = await fetch('http://192.168.222.114:3000/auth/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify(loginData) 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(loginData)
             });
 
             const data = await response.json();

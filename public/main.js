@@ -13,7 +13,7 @@ async function startApp()
 
 async function StartLogIn()
 {
-    const logInManager = LogInManager();
+    const logInManager = new LogInManager();
     const ui = new UI(logInManager,false);
 
 }

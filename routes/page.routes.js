@@ -3,15 +3,13 @@ const path = require("path");
 
 const router = express.Router();
 
-module.exports = (baseDir) => {
-
-  router.get("/", (req,res) => {
-    if(req.session.user){
-      res.sendFile(path.join(baseDir, "index.html"));
-    }else{
-      res.sendFile(path.join(baseDir,"login.html"));
-    }
-  });
-
-  return router;
+module.exports = (viewDir) => {
+    router.get("/", (req, res) => {
+        if (req.session.user) {
+            res.sendFile(path.join(viewDir, "index.html"));
+        } else {
+            res.sendFile(path.join(viewDir, "login.html"));
+        }
+    });
+    return router;
 };
