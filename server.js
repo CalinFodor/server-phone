@@ -21,6 +21,7 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // --- 2. SESSION CONFIGURATION ---
 app.use(session({
