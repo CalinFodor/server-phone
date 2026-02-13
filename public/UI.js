@@ -43,7 +43,10 @@ export class UI{
             password:pass
         }
 
-        await this.phoneManager.sendLogInData(logInData);
+        const response = await this.phoneManager.sendLogInData(logInData);
+	if(response.message === 'Login successful'){
+		window.location.reload();
+	}
     }
 
     async renderBars(data) {
