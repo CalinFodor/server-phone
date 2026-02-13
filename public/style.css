@@ -125,7 +125,7 @@ main {
 }
 
 
-.log-in-form .sub-button {
+#sub-button {
    padding: 15px;
     border-radius: 10px;
     margin-top: 15px;
