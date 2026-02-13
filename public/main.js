@@ -18,7 +18,7 @@ async function StartLogIn()
 
 }
 
-if(document.getElementsByClassName("sub-button")){
+if(document.getElementById("sub-button")){
     StartLogIn();
 }else{
     startApp();

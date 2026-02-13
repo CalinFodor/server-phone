@@ -6,11 +6,12 @@ module.exports = () => {
     router.post('/login', (req, res) => {
         const { username, password } = req.body;
 
-        if (username !== process.env.LOGIN_USER || password !== process.env.LOGIN_PASS) {
-            console.log("Invalid credentials");
+		
+        if (username != process.env.LOGIN_USER || password != process.env.LOGIN_PASS) {
+            
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-
+	
         // Initialize session
         req.session.user = { username: username };
         res.json({ message: 'Login successful', user: req.session.user });
