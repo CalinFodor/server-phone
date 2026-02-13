@@ -1,13 +1,26 @@
 import { UI } from "./UI.js"
 import { PhoneManager } from "./PhoneManager.js"
+import { LogInManager } from "./LogInManager.js";
 
 async function startApp()
-{
+{   
     const phoneManager = new PhoneManager(`ws://${window.location.host}`, (data) => {
-    ui.renderBars(data);
+        ui.renderBars(data);
     });
 
-    const ui = new UI(phoneManager);
+    const ui = new UI(phoneManager,true);
 }
 
-startApp();
+async function StartLogIn()
+{
+    const logInManager = LogInManager();
+    const ui = new UI(logInManager,false);
+
+}
+
+if(document.getElementsByClassName("sub-button")){
+    StartLogIn();
+}else{
+    startApp();
+}
+
