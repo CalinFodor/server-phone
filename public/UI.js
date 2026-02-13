@@ -44,9 +44,11 @@ export class UI{
         }
 
         const response = await this.phoneManager.sendLogInData(logInData);
-	if(response.message === 'Login successful'){
-		window.location.reload();
-	}
+        if(response.message === 'Login successful'){
+            window.location.reload();
+        }else{
+            alert("Log In Wrong");
+        }
     }
 
     async renderBars(data) {
