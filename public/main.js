@@ -8,7 +8,6 @@ async function startApp()
     });
 
     const ui = new UI(phoneManager);
-
 }
 
 startApp();

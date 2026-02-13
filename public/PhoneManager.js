@@ -11,6 +11,7 @@ export class PhoneManager{
 
         }
     }
+    
 
     async getPhoneStats(){
         const res = await(fetch(this.apiUrl));
