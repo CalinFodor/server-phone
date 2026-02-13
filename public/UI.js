@@ -29,7 +29,7 @@ export class UI{
         this.pass_input = document.getElementById('password');
         this.sub_button = document.getElementById('sub-button');
 
-        this.sub_button.addEventListener("click",() => )
+        this.sub_button.addEventListener("click",() => this.subPressed());
         
     }
 
