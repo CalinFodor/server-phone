@@ -37,6 +37,11 @@ export class PhoneManager{
         return data;
     }
 
-    
+    async getLocation(){
+        const response = await fetch(`${API_BASE_URL}/control/get-location`, { method: 'POST' });
+        const data = await response.json();
+        return data;
+    }
+
 
 }
