@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "./settings";
+import { API_BASE_URL } from "./settings.js";
 
 export class LogInManager
 {
