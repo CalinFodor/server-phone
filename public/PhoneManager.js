@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "./settings";
+
 export class PhoneManager{
 
     constructor(url,onDataReceived){
@@ -21,16 +23,16 @@ export class PhoneManager{
 
     async toggleFlash(state){
         const command = state ? "flashlight-on":"flashlight-off";
-        await fetch(`http://192.168.1.146:3000/control/${command}`, { method: 'POST' });
+        await fetch(`${API_BASE_URL}/${command}`, { method: 'POST' });
     }
 
     async toggleVib(){
         const command = "vibrate";
-        await fetch(`http://192.168.1.146:3000/control/${command}`, { method: 'POST' });
+        await fetch(`${API_BASE_URL}/control/${command}`, { method: 'POST' });
     }
 
     async takePhoto(){
-        const response = await fetch(`http://192.168.1.146:3000/control/take-photo`, { method: 'POST' });
+        const response = await fetch(`${API_BASE_URL}/control/take-photo`, { method: 'POST' });
         const data = await response.json();
         return data;
     }
