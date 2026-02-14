@@ -103,7 +103,7 @@ export class UI{
     }
 
     rotatePhoto(){
-        this.angle = (angle + 90) % 360;
+        this.angle = (this.angle + 90) % 360;
         document.getElementById('display-img').style.transform = `rotate(${this.angle}deg)`; 
         document.getElementById('rotphot-btn').style.color = "red";
 

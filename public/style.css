@@ -79,7 +79,6 @@ img{
   width: 50%;
   margin: 30px;
   border: 5px solid #555;
-
 }
 
 #rotphot-btn{
@@ -88,6 +87,11 @@ img{
    padding:20px 0px;
    cursor: pointer;
 
+}
+
+.img-container{
+  display: flex;
+  flex-direction: column;
 }
 /* log in page */
 
