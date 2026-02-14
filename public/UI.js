@@ -94,7 +94,7 @@ export class UI{
         const data = await this.phoneManager.takePhoto();
         this.photo.src = data.photoUrl;
 
-        document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn>Rotate Photo</button>');
+        document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn">Rotate Photo</button>');
         document.getElementById('rotphot-btn').addEventListener("click",() => this.rotatePhoto());  
 
         setTimeout(() => {
