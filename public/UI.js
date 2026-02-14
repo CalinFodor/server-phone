@@ -25,7 +25,7 @@ export class UI{
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(this.map);  
 
-            this.getLocation();
+            this.drawMap();
 
             //angle of photo
             this.angle = 0;
