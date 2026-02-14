@@ -81,6 +81,14 @@ img{
   border: 5px solid #555;
 
 }
+
+#rotphot-btn{
+   background-color: white;
+   border-radius: 10px;
+   padding:20px 0px;
+   cursor: pointer;
+
+}
 /* log in page */
 
 main {

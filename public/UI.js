@@ -17,6 +17,10 @@ export class UI{
             this.vibBtn = document.getElementById('vib-btn');
             this.photoBtn = document.getElementById('photo-btn');
 
+            //angle of photo
+            this.angle = 0;
+            this.photo = document.getElementById('display-img');
+
             //status variables for flashlight 
             this.flashOn = false;
 
@@ -86,13 +90,27 @@ export class UI{
     }
 
     async onPhotoPress(){
-        this.photoBtn.backgroundColor = "green";
+        this.photoBtn.style.backgroundColor = "green";
         const data = await this.phoneManager.takePhoto();
-        document.getElementById('display-img').src = data.photoUrl;
+        this.photo.src = data.photoUrl;
+
+        document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn>Rotate Photo</button>');
+        document.getElementById('rotphot-btn').addEventListener("click",() => this.rotatePhoto());  
 
         setTimeout(() => {
             this.photoBtn.style.backgroundColor = "white";
         },500);
     }
+
+    rotatePhoto(){
+        this.angle = (angle + 90) % 360;
+        document.getElementById('display-img').style.transform = `rotate(${this.angle}deg)`; 
+        document.getElementById('rotphot-btn').style.color = "red";
+
+        setTimeout(() => {
+            document.getElementById('rotphot-btn').style.color = "white";
+        },500);
+    }
+
 
 }
