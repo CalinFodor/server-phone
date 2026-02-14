@@ -13,6 +13,7 @@ module.exports = (baseDir) => {
 
     try{
       if(action === "flashlight-on"){
+
         await hardware.flashlightOn();
       }
       else if(action === "flashlight-off"){

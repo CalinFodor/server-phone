@@ -23,7 +23,7 @@ export class PhoneManager{
 
     async toggleFlash(state){
         const command = state ? "flashlight-on":"flashlight-off";
-        await fetch(`${API_BASE_URL}/${command}`, { method: 'POST' });
+        await fetch(`${API_BASE_URL}/control/${command}`, { method: 'POST' });
     }
 
     async toggleVib(){
