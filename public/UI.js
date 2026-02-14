@@ -93,9 +93,11 @@ export class UI{
         this.photoBtn.style.backgroundColor = "green";
         const data = await this.phoneManager.takePhoto();
         this.photo.src = data.photoUrl;
-        if(!document.getElementsByClassName('phot-btn')){
+        if(!document.querySelector('.photbtn-container')){
+		console.log("Buutons created");	
             document.querySelector('.img-container').insertAdjacentHTML('beforeend', 
                 `<div class="photbtn-container">
+		    <button id="hidephot-btn">Hide Photo</button>		
                     <button id="rotphot-btn">Rotate Photo</button>
                     <button id="savephot-btn">Save Photo</button>
                     <button id="delphot-btn">Delete Photo</button>

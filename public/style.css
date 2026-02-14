@@ -76,11 +76,11 @@ span {
   align-items: center;    
   min-height: 400px;      
   overflow: hidden;      
-  position: relative;
+  position: relative;	
 }
 
 img {
-  width: 30%;
+  width: 40%;
   margin: 0;              
   border: 5px solid #555;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
@@ -92,17 +92,19 @@ img {
 .img-container{
   display: flex;
   flex-direction: row;
+  justify-content:center;	
 }
 
 .photbtn-container{
   display: flex;
   flex-direction: column;
+  justify-content:center;	
 }
 
 .photbtn-container button{
    background-color: white;
-   border-radius: 15px;
-   padding:15px 0px;
+   border-radius: 20px;
+   padding:20px 0px;
    cursor: pointer;
 }
 /* log in page */
