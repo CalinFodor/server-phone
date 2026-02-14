@@ -34,7 +34,7 @@ module.exports = (baseDir) => {
 
         return res.json({
           latitude:locJson.latitude,
-          longtitude:locJson.longtitude
+          longtiude:locJson.longtiude
         });
 
       }
