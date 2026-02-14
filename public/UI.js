@@ -93,8 +93,14 @@ export class UI{
         this.photoBtn.style.backgroundColor = "green";
         const data = await this.phoneManager.takePhoto();
         this.photo.src = data.photoUrl;
-        if(!document.getElementById('rotphot-btn')){
-            document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn">Rotate Photo</button>');
+        if(!document.getElementsByClassName('phot-btn')){
+            document.querySelector('.img-container').insertAdjacentHTML('beforeend', 
+                `<div class="photbtn-container">
+                    <button id="rotphot-btn">Rotate Photo</button>
+                    <button id="savephot-btn">Save Photo</button>
+                    <button id="delphot-btn">Delete Photo</button>
+                </div>    
+                    `);
             document.getElementById('rotphot-btn').addEventListener("click",() => this.rotatePhoto());  
         }    
         setTimeout(() => {

@@ -88,17 +88,22 @@ img {
   transform-origin: center center; 
 }
 
-#rotphot-btn{
-   background-color: white;
-   border-radius: 10px;
-   padding:10px 0px;
-   cursor: pointer;
-
-}
 
 .img-container{
   display: flex;
+  flex-direction: row;
+}
+
+.photbtn-container{
+  display: flex;
   flex-direction: column;
+}
+
+.photbtn-container button{
+   background-color: white;
+   border-radius: 15px;
+   padding:15px 0px;
+   cursor: pointer;
 }
 /* log in page */
 
