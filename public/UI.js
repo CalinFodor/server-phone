@@ -15,7 +15,10 @@ export class UI{
             //hardware control buttons
             this.flashBtn = document.getElementById('flash-btn');
             this.vibBtn = document.getElementById('vib-btn');
-            this.photoBtn = document.getElementById('photo-btn');
+            this.photoBtn = document.getElementById('photo-btn');   
+
+            //map
+            this.map = L.map('map').setView([51.505, -0.09], 13);
 
             //angle of photo
             this.angle = 0;
@@ -117,6 +120,15 @@ export class UI{
         setTimeout(() => {
             document.getElementById('rotphot-btn').style.backgroundColor = "white";
         },500);
+    }
+
+    async drawMap(){
+        const data = await this.phoneManager.getLocation();
+
+        const lat = data.latitude;
+        const long = data.longtitude;
+
+
     }
 
 

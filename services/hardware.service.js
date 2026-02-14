@@ -13,6 +13,10 @@ async function vibrate(){
   return run("termux-vibrate -d 1000");
 }
 
+async function getLocation(){
+  return run("termux-location -p network")
+}
+
 async function takePhoto(baseDir){
   const fileName = `${Date.now()}.jpeg`;
   const fullPath = path.join(baseDir, "photos", fileName);
@@ -26,5 +30,6 @@ module.exports = {
   flashlightOn,
   flashlightOff,
   vibrate,
-  takePhoto
+  takePhoto,
+  getLocation
 };

@@ -28,6 +28,15 @@ module.exports = (baseDir) => {
         return res.json({
           photoUrl: `/photos/${fileName}`
         });
+      }else if(action === "get-location"){
+        const locInfo = await hardware.getLocation();
+        const locJson = JSON.parse(locInfo);
+
+        return res.json({
+          latitude:locJson.latitude,
+          longtitude:locJson.longtitude
+        });
+
       }
 
       res.send("Command ok");
