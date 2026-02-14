@@ -93,22 +93,22 @@ export class UI{
         this.photoBtn.style.backgroundColor = "green";
         const data = await this.phoneManager.takePhoto();
         this.photo.src = data.photoUrl;
-
-        document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn">Rotate Photo</button>');
-        document.getElementById('rotphot-btn').addEventListener("click",() => this.rotatePhoto());  
-
+        if(!document.getElementById('rotphot-btn')){
+            document.querySelector('.img-container').insertAdjacentHTML('beforeend', '<button id="rotphot-btn">Rotate Photo</button>');
+            document.getElementById('rotphot-btn').addEventListener("click",() => this.rotatePhoto());  
+        }    
         setTimeout(() => {
             this.photoBtn.style.backgroundColor = "white";
         },500);
     }
 
     rotatePhoto(){
-        this.angle = (this.angle + 90) % 360;
+        this.angle += 90;
         document.getElementById('display-img').style.transform = `rotate(${this.angle}deg)`; 
-        document.getElementById('rotphot-btn').style.color = "red";
+        document.getElementById('rotphot-btn').style.backgroundColor = "red";
 
         setTimeout(() => {
-            document.getElementById('rotphot-btn').style.color = "white";
+            document.getElementById('rotphot-btn').style.backgroundColor = "white";
         },500);
     }
 
