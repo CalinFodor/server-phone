@@ -133,7 +133,7 @@ export class UI{
         const data = await this.phoneManager.getLocation();
 
         const lat = data.latitude;
-        const long = data.longtitude;
+        const long = data.longtiude;
 
         var marker = L.marker([lat,long]).addTo(this.map)
     }
