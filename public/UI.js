@@ -18,7 +18,7 @@ export class UI{
             this.photoBtn = document.getElementById('photo-btn');   
 
             //map
-            this.map = L.map('map').setView([51.505, -0.09], 13);
+            this.map = L.map('map');
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
@@ -134,9 +134,9 @@ export class UI{
         const data = await this.phoneManager.getLocation();
 
         const lat = data.latitude;
-        const long = data.longtiude;
-
-        var marker = L.marker([lat,long]).addTo(this.map)
+        const long = data.longitude;
+        this.map.setView([lat, long], 13);
+        var marker = L.marker([lat,long]).addTo(this.map);
     }
 
 
