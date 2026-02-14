@@ -20,6 +20,13 @@ export class UI{
             //map
             this.map = L.map('map').setView([51.505, -0.09], 13);
 
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(this.map);  
+
+            this.getLocation();
+
             //angle of photo
             this.angle = 0;
             this.photo = document.getElementById('display-img');
@@ -129,7 +136,7 @@ export class UI{
         const lat = data.latitude;
         const long = data.longtitude;
 
-
+        var marker = L.marker([lat,long]).addTo(this.map)
     }
 
 
